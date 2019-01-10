@@ -50,7 +50,14 @@ init_connect='SET NAMES utf8'
 ##### 添加远程登录用户
 GRANT ALL PRIVILEGES ON *.* TO 'username'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
 ####修改root允许远程连接
-ALTER USER 'root'@'地址' IDENTIFIED BY '1234556'
+### 找到bind-address = 127.0.0.1这一行 b改为bind-address = 0.0.0.0即可
+grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
+flush privileges;
+
+## 新建用户远程连接mysql数据库
+grant all on *.* to admin@'%' identified by '123456' with grant option;
+flush privileges;
+
 
 #### 重新启动mysql服务
 systemctl restart mysqld
